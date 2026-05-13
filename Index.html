@@ -1,0 +1,2419 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mare Girl · a Star Equestrian blog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Coiny&family=Quicksand:wght@400;500;600;700&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+/* ============ TOKENS ============ */
+:root {
+  --cream: #FBF5EA;
+  --cream-2: #F4EAD5;
+  --pink: #E8B4B0;
+  --pink-2: #F3D2CE;
+  --pink-3: #D99A9A;
+  --pink-deep: #B86F6A;
+  --brown: #7A4A33;
+  --brown-deep: #5A3623;
+  --brown-soft: #A87E66;
+  --blue: #A8C8DE;
+  --blue-2: #CADBE6;
+  --blue-ink: #3D5A6B;
+  --ink: #3B2A20;
+  --ink-soft: #6E5648;
+  --shadow: 0 10px 30px -12px rgba(122, 74, 51, 0.18);
+  --shadow-lg: 0 24px 60px -24px rgba(122, 74, 51, 0.28);
+  --radius: 22px;
+  --radius-sm: 14px;
+  --radius-lg: 32px;
+  --pad: clamp(20px, 4vw, 56px);
+  --maxw: 1180px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: 'Quicksand', system-ui, sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+button { font-family: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+input, select, textarea { font-family: inherit; font-size: inherit; color: inherit; }
+
+h1, h2, h3, h4 { font-family: 'Coiny', 'Quicksand', system-ui, sans-serif; font-weight: 400; letter-spacing: -0.01em; margin: 0; color: var(--brown-deep); }
+h1 { font-size: clamp(34px, 5.4vw, 60px); line-height: 1.05; }
+h2 { font-size: clamp(26px, 3.6vw, 38px); line-height: 1.1; }
+h3 { font-size: 22px; line-height: 1.2; }
+
+a { color: inherit; }
+
+.app { display: flex; flex-direction: column; min-height: 100vh; }
+
+/* ============ HEADER ============ */
+.hdr {
+  position: sticky; top: 0; z-index: 50;
+  background: rgba(251, 245, 234, 0.92);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(122, 74, 51, 0.08);
+}
+.hdr-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 14px var(--pad);
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.brand { display: flex; align-items: center; gap: 12px; padding: 0; }
+.brand-mark {
+  width: 44px; height: 44px;
+  background: var(--pink-2);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  box-shadow: var(--shadow);
+}
+.brand-text { display: flex; flex-direction: column; align-items: flex-start; line-height: 1; }
+.brand-name { font-family: 'Coiny', sans-serif; font-size: 22px; color: var(--brown-deep); }
+.brand-sub { font-family: 'Caveat', cursive; font-size: 15px; color: var(--pink-deep); margin-top: 2px; }
+
+.nav-desktop { display: none; gap: 4px; }
+.nav-link {
+  position: relative;
+  padding: 10px 14px;
+  font-weight: 600;
+  color: var(--brown);
+  border-radius: 999px;
+  transition: background .15s, color .15s;
+}
+.nav-link:hover { background: var(--pink-2); }
+.nav-link.active { color: var(--brown-deep); }
+.nav-underline {
+  position: absolute; left: 14px; right: 14px; bottom: 4px; height: 3px;
+  background: var(--pink-3); border-radius: 3px;
+}
+
+.menu-btn {
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--pink-2);
+}
+.burger { width: 20px; height: 16px; position: relative; }
+.burger span {
+  position: absolute; left: 0; right: 0; height: 2.5px; background: var(--brown-deep);
+  border-radius: 2px; transition: transform .2s, opacity .2s, top .2s;
+}
+.burger span:nth-child(1) { top: 0; }
+.burger span:nth-child(2) { top: 7px; }
+.burger span:nth-child(3) { top: 14px; }
+.burger.open span:nth-child(1) { top: 7px; transform: rotate(45deg); }
+.burger.open span:nth-child(2) { opacity: 0; }
+.burger.open span:nth-child(3) { top: 7px; transform: rotate(-45deg); }
+
+.mob-menu {
+  max-height: 0; overflow: hidden;
+  transition: max-height .3s ease;
+  background: var(--cream);
+  border-bottom: 1px solid rgba(122, 74, 51, 0.08);
+}
+.mob-menu.open { max-height: 480px; }
+.mob-link {
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; padding: 14px var(--pad);
+  font-size: 17px; font-weight: 600; color: var(--brown-deep);
+  border-bottom: 1px solid rgba(122, 74, 51, 0.06);
+  text-align: left;
+}
+.mob-link.active { background: var(--brown-deep); color: var(--cream); }
+
+@media (min-width: 880px) {
+  .nav-desktop { display: flex; }
+  .menu-btn { display: none; }
+  .mob-menu { display: none; }
+}
+
+/* ============ LAYOUT ============ */
+main { flex: 1; }
+.page {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: clamp(24px, 5vw, 56px) var(--pad) 80px;
+  display: flex; flex-direction: column;
+  gap: clamp(48px, 7vw, 88px);
+}
+.sec { display: flex; flex-direction: column; gap: 24px; }
+.sec-tinted {
+  background: var(--blue-2);
+  margin: 0 calc(-1 * var(--pad));
+  padding: clamp(36px, 5vw, 64px) var(--pad);
+  border-radius: var(--radius-lg);
+}
+.sec-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.sec-kicker {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-family: 'Caveat', cursive;
+  font-size: 20px; color: var(--pink-deep);
+  margin-bottom: 4px;
+}
+.sec-title { color: var(--brown-deep); }
+.link-btn { font-weight: 700; color: var(--pink-deep); padding: 4px 0; }
+.link-btn:hover { color: var(--brown-deep); }
+
+.grid { display: grid; gap: 24px; }
+.grid-2 { grid-template-columns: 1fr; }
+.grid-3 { grid-template-columns: 1fr; }
+@media (min-width: 640px) {
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+}
+@media (min-width: 960px) {
+  .grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+}
+
+/* ============ HERO ============ */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.hero-text { display: flex; flex-direction: column; gap: 18px; }
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'Caveat', cursive; font-size: 22px;
+  color: var(--pink-deep);
+}
+.hero-title { text-wrap: pretty; }
+.ink-pink { color: var(--pink-deep); }
+.hero-sub { font-size: 18px; color: var(--ink-soft); max-width: 52ch; }
+.hero-cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 4px; }
+.hero-stats {
+  display: flex; gap: 28px; flex-wrap: wrap;
+  margin-top: 14px; padding-top: 22px;
+  border-top: 1.5px dashed rgba(122, 74, 51, 0.25);
+}
+.hero-stats > div { display: flex; flex-direction: column; }
+.hero-stats strong { font-family: 'Coiny', sans-serif; font-size: 28px; color: var(--brown-deep); }
+.hero-stats span { font-size: 13px; color: var(--ink-soft); }
+
+.hero-art {
+  position: relative;
+  min-height: 380px;
+}
+.hero-card {
+  position: absolute;
+  background: var(--cream);
+  padding: 10px 10px 14px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  width: 60%;
+}
+.hero-card-1 { top: 0; left: 0; transform: rotate(-4deg); }
+.hero-card-2 { bottom: 0; right: 4%; transform: rotate(3deg); width: 52%; }
+.hero-card-label {
+  text-align: center; padding-top: 8px;
+  font-family: 'Caveat', cursive; font-size: 19px; color: var(--brown);
+}
+.hero-blob {
+  position: absolute; border-radius: 50%; z-index: -1;
+}
+.hero-blob-1 { width: 220px; height: 220px; background: var(--pink-2); top: -10px; right: 10%; opacity: .7; }
+.hero-blob-2 { width: 140px; height: 140px; background: var(--blue); bottom: 18%; left: 8%; opacity: .65; }
+.hero-stamp {
+  position: absolute;
+  width: 64px; height: 64px;
+  background: var(--cream);
+  border: 2px dashed var(--pink-3);
+  border-radius: 50%;
+  display: grid; place-items: center;
+  top: 36%; right: -2%;
+  transform: rotate(15deg);
+  box-shadow: var(--shadow);
+}
+
+@media (min-width: 880px) {
+  .hero { grid-template-columns: 1.05fr 1fr; gap: 56px; }
+  .hero-art { min-height: 520px; }
+}
+
+/* ============ BUTTONS ============ */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 15px;
+  transition: transform .12s, box-shadow .15s, background .15s, color .15s;
+  white-space: nowrap;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: translateY(0); }
+.btn-pink { background: var(--pink); color: var(--brown-deep); box-shadow: 0 4px 0 var(--pink-deep); }
+.btn-pink:hover { background: var(--pink-3); }
+.btn-brown { background: var(--brown-deep); color: var(--cream); box-shadow: 0 4px 0 #2c1b13; }
+.btn-brown:hover { background: var(--brown); }
+.btn-outline { background: transparent; color: var(--brown-deep); box-shadow: inset 0 0 0 2px var(--brown-deep); }
+.btn-outline:hover { background: var(--brown-deep); color: var(--cream); }
+.btn-ghost { padding: 8px 14px; color: var(--ink-soft); }
+.btn-ghost:hover { color: var(--pink-deep); }
+.btn-lg { padding: 14px 24px; font-size: 16px; }
+.btn-sm { padding: 8px 14px; font-size: 13px; }
+
+/* ============ TAG ============ */
+.tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.tag-pink { background: var(--pink-2); color: var(--pink-deep); }
+.tag-blue { background: var(--blue-2); color: var(--blue-ink); }
+.tag-brown { background: var(--brown-deep); color: var(--cream); }
+.tag-cream { background: var(--cream-2); color: var(--brown); }
+
+/* ============ PLACEHOLDERS ============ */
+.ph {
+  position: relative;
+  width: 100%;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  display: grid; place-items: center;
+}
+.ph-label {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 12px;
+  padding: 6px 10px;
+  background: rgba(251, 245, 234, 0.85);
+  border-radius: 6px;
+  max-width: 80%;
+  text-align: center;
+}
+
+/* ============ POSTS ============ */
+.post {
+  background: var(--cream);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1.5px solid rgba(122, 74, 51, 0.06);
+  display: flex; flex-direction: column;
+  transition: transform .15s, box-shadow .2s;
+}
+.post:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
+.post-media { position: relative; }
+.post-media .ph { border-radius: 0; }
+.post-cat {
+  position: absolute; top: 14px; left: 14px;
+  background: var(--cream); color: var(--pink-deep);
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .02em;
+}
+.post-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.post-meta { font-size: 13px; color: var(--ink-soft); display: flex; gap: 8px; align-items: center; }
+.post-meta .dot { color: var(--pink-3); }
+.post-title { line-height: 1.2; }
+.post-excerpt { color: var(--ink-soft); font-size: 15px; flex: 1; }
+.post-actions { display: flex; justify-content: space-between; align-items: center; padding-top: 8px; }
+.heart { font-size: 18px; color: var(--brown-soft); transition: color .2s, transform .2s; }
+.heart.lit { color: var(--pink-deep); transform: scale(1.15); }
+
+.post-featured { display: grid; grid-template-columns: 1fr; }
+@media (min-width: 760px) {
+  .post-featured { grid-template-columns: 1.1fr 1fr; }
+  .post-featured .post-body { padding: 32px 36px; justify-content: center; }
+  .post-featured .post-title { font-size: 28px; }
+}
+
+/* ============ PAGE HEAD ============ */
+.page-head { display: flex; flex-direction: column; gap: 12px; max-width: 720px; }
+.page-title { color: var(--brown-deep); }
+.page-lede { color: var(--ink-soft); font-size: 18px; }
+
+/* ============ FILTERS ============ */
+.filters {
+  display: flex; flex-direction: column; gap: 16px;
+  padding: 18px; border-radius: var(--radius);
+  background: var(--cream-2);
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips-center { justify-content: center; }
+.chip {
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--cream);
+  color: var(--brown);
+  font-weight: 600; font-size: 14px;
+  border: 1.5px solid transparent;
+  transition: all .15s;
+}
+.chip:hover { border-color: var(--pink-3); }
+.chip.active { background: var(--brown-deep); color: var(--cream); }
+.filters-right { display: flex; gap: 10px; flex-wrap: wrap; }
+.search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--cream);
+  padding: 8px 14px; border-radius: 999px;
+  flex: 1; min-width: 180px;
+}
+.search span { color: var(--brown-soft); font-size: 18px; }
+.search input { border: 0; outline: 0; background: transparent; width: 100%; padding: 4px 0; }
+.select {
+  background: var(--cream);
+  border: 0; outline: 0;
+  padding: 10px 14px; border-radius: 999px;
+  font-weight: 600; color: var(--brown);
+}
+
+.empty {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 56px 20px; text-align: center;
+  background: var(--cream-2); border-radius: var(--radius);
+}
+.empty p { color: var(--ink-soft); }
+
+/* ============ VIDEOS ============ */
+.video {
+  background: var(--cream);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  border: 1.5px solid rgba(122, 74, 51, 0.06);
+}
+.video:hover { box-shadow: var(--shadow-lg); }
+.video-thumb {
+  position: relative;
+  display: block; width: 100%; padding: 0;
+}
+.video-thumb .ph { border-radius: 0; }
+.video-thumb-img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
+.video-feature-img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; border-radius: var(--radius-sm); }
+.video-real {
+  position: absolute; top: 10px; left: 10px;
+  background: var(--pink-deep); color: var(--cream);
+  font-size: 11px; font-weight: 700; letter-spacing: .04em;
+  padding: 3px 8px; border-radius: 6px;
+}
+.shorts { display: flex; flex-direction: column; gap: 20px; }
+.shorts-row {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+@media (min-width: 600px) { .shorts-row { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 900px) { .shorts-row { grid-template-columns: repeat(5, 1fr); } }
+.short-card {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: block;
+  transition: transform .15s;
+}
+.short-card:hover { transform: translateY(-3px); }
+.short-card .ph { border-radius: 0; }
+.short-img { width: 100%; aspect-ratio: 9 / 16; object-fit: cover; display: block; background: #000; }
+.post-img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+.img-slot { width: 100%; border-radius: var(--radius-sm); overflow: hidden; }
+.img-slot-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.img-slot-hint {
+  position: absolute; left: 50%; bottom: 10px; transform: translateX(-50%);
+  background: rgba(251, 245, 234, 0.92); color: var(--brown-deep);
+  padding: 4px 10px; border-radius: 999px;
+  font-size: 11px; font-weight: 700; letter-spacing: .04em;
+  opacity: 0; transition: opacity .15s; pointer-events: none;
+}
+.img-slot:hover .img-slot-hint { opacity: 1; }
+.img-slot-clear {
+  position: absolute; top: 8px; right: 8px;
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--brown-deep); color: var(--cream);
+  font-size: 16px; line-height: 1;
+}
+.post-userbadge {
+  position: absolute; top: 14px; right: 14px;
+  background: var(--brown-deep); color: var(--cream);
+  padding: 4px 12px; border-radius: 999px;
+  font-size: 11px; font-weight: 700; letter-spacing: .04em;
+}
+
+/* ============ POST DETAIL MODAL ============ */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(59, 42, 32, 0.55);
+  backdrop-filter: blur(6px);
+  display: flex; align-items: flex-start; justify-content: center;
+  padding: 20px;
+  overflow-y: auto;
+  animation: fadeIn .2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.modal-post {
+  background: var(--cream);
+  border-radius: var(--radius-lg);
+  max-width: 760px; width: 100%;
+  margin: 20px auto;
+  box-shadow: var(--shadow-lg);
+  position: relative;
+  overflow: hidden;
+}
+.modal-close {
+  position: absolute; top: 14px; right: 14px; z-index: 5;
+  width: 40px; height: 40px;
+  background: var(--cream); color: var(--brown-deep);
+  border-radius: 50%;
+  font-size: 26px; line-height: 1;
+  box-shadow: var(--shadow);
+}
+.modal-close:hover { background: var(--pink-2); }
+.modal-cover { width: 100%; max-height: 360px; overflow: hidden; }
+.modal-cover .ph { border-radius: 0; }
+.modal-body { padding: clamp(20px, 4vw, 40px); display: flex; flex-direction: column; gap: 14px; }
+.modal-title { font-size: clamp(28px, 4.5vw, 44px); line-height: 1.1; }
+.modal-content p { color: var(--ink-soft); font-size: 17px; margin: 0 0 14px; }
+.modal-footer {
+  display: flex; gap: 10px; flex-wrap: wrap;
+  padding-top: 14px;
+  border-top: 1.5px dashed rgba(122, 74, 51, 0.2);
+}
+
+/* ============ NEW POST FORM ============ */
+.modal-form .field { display: flex; flex-direction: column; gap: 6px; }
+.modal-form .field > span {
+  font-family: 'Caveat', cursive; font-size: 18px;
+  color: var(--pink-deep);
+}
+.modal-form input,
+.modal-form select,
+.modal-form textarea {
+  padding: 12px 16px;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  border: 2px solid rgba(122, 74, 51, 0.12);
+  outline: 0;
+  font-size: 15px;
+  resize: vertical;
+}
+.modal-form input:focus,
+.modal-form select:focus,
+.modal-form textarea:focus { border-color: var(--pink-3); }
+.field-row { display: grid; grid-template-columns: 1fr; gap: 12px; }
+@media (min-width: 600px) { .field-row { grid-template-columns: 1fr 1fr; } }
+
+/* ============ ADMIN ============ */
+.admin-fab {
+  position: fixed; bottom: 24px; right: 24px; z-index: 100;
+  display: flex; align-items: center; gap: 10px;
+  padding: 14px 22px;
+  background: var(--brown-deep); color: var(--cream);
+  border-radius: 999px;
+  font-weight: 700;
+  box-shadow: 0 8px 24px -8px rgba(0,0,0,0.4), 0 4px 0 #2c1b13;
+  transition: transform .15s;
+}
+.admin-fab:hover { transform: translateY(-2px); }
+.admin-fab-plus { font-size: 18px; color: var(--pink-2); }
+.admin-key {
+  position: fixed; bottom: 16px; left: 16px; z-index: 90;
+  width: 28px; height: 28px;
+  background: transparent;
+  color: var(--brown-soft); opacity: .4;
+  font-size: 12px;
+  border-radius: 50%;
+}
+.admin-key:hover { opacity: 1; background: var(--cream-2); }
+
+.admin-pill {
+  position: fixed; bottom: 16px; left: 16px; z-index: 90;
+  display: flex; align-items: center; gap: 6px;
+  padding: 6px 10px 6px 14px;
+  background: var(--pink-2); color: var(--pink-deep);
+  border-radius: 999px;
+  font-size: 13px; font-weight: 700;
+  box-shadow: var(--shadow);
+}
+.admin-pill button {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--cream); color: var(--brown-deep);
+  font-size: 12px;
+}
+.admin-pill button:hover { background: var(--pink-3); color: var(--cream); }
+
+.modal-passcode { max-width: 460px; }
+.modal-passcode.shake { animation: shakeX .4s ease; }
+@keyframes shakeX {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+.passcode-stamp {
+  width: 70px; height: 70px;
+  margin: 0 auto;
+  background: var(--pink-2);
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 0 var(--pink-3);
+}
+.passcode-err {
+  background: rgba(217, 154, 154, 0.18);
+  color: var(--pink-deep);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  text-align: center;
+  font-weight: 600;
+}
+.save-toast {
+  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
+  background: var(--brown-deep); color: var(--cream);
+  padding: 12px 22px; border-radius: 999px;
+  font-weight: 700; font-size: 15px;
+  box-shadow: 0 8px 24px -8px rgba(0,0,0,0.4);
+  z-index: 110;
+  animation: fadeIn .2s ease;
+}
+
+/* ============ EDITABLE TEXT (admin) ============ */
+.editable {
+  outline: 2px dashed rgba(217, 154, 154, 0.5);
+  outline-offset: 4px;
+  border-radius: 4px;
+  transition: outline-color .15s, background .15s;
+  cursor: text;
+  min-height: 1em;
+  min-width: 0.5em;
+}
+.editable:hover { outline-color: var(--pink-deep); background: rgba(217, 154, 154, 0.08); }
+.editable:focus { outline: 2px solid var(--pink-deep); background: rgba(251, 245, 234, 0.6); }
+.short-play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 44px; height: 44px;
+  background: rgba(251, 245, 234, 0.92);
+  color: var(--brown-deep);
+  border-radius: 50%; display: grid; place-items: center;
+  font-size: 16px;
+}
+.short-tag {
+  position: absolute; top: 8px; left: 8px;
+  background: var(--pink-deep); color: var(--cream);
+  font-size: 10px; font-weight: 700; letter-spacing: .05em;
+  padding: 3px 7px; border-radius: 5px;
+}
+.video-thumb .play-btn {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 56px; height: 56px;
+  background: rgba(251, 245, 234, 0.95);
+  color: var(--brown-deep);
+  border-radius: 50%;
+  font-size: 20px;
+  display: grid; place-items: center;
+  box-shadow: var(--shadow-lg);
+  transition: transform .15s;
+}
+.video-thumb:hover .play-btn { transform: translate(-50%, -50%) scale(1.08); }
+.video-dur {
+  position: absolute; bottom: 10px; right: 10px;
+  background: rgba(59, 42, 32, 0.85);
+  color: var(--cream);
+  font-size: 12px; font-weight: 600;
+  padding: 3px 8px; border-radius: 6px;
+}
+.video-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; }
+.video-title { font-size: 18px; }
+.video-meta { font-size: 13px; color: var(--ink-soft); }
+
+.video-feature { position: relative; }
+.video-feature-frame {
+  position: relative;
+  background: var(--cream);
+  padding: 14px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+}
+.play-btn-lg {
+  position: absolute; top: calc(50% - 30px); left: 50%; transform: translate(-50%, -50%);
+  width: 80px; height: 80px;
+  background: var(--pink); color: var(--cream);
+  border-radius: 50%; font-size: 28px;
+  display: grid; place-items: center;
+  box-shadow: 0 6px 0 var(--pink-deep);
+  transition: transform .15s;
+}
+.play-btn-lg:hover { transform: translate(-50%, -50%) scale(1.06); }
+.video-feature-meta { padding: 16px 8px 4px; display: flex; flex-direction: column; gap: 8px; }
+.video-feature-meta h2 { font-size: clamp(22px, 3vw, 30px); }
+
+.video-embed { display: flex; flex-direction: column; gap: 16px; }
+.video-embed-inner {
+  background: var(--brown-deep);
+  border-radius: var(--radius-sm);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  display: grid; place-items: center;
+}
+.video-embed-fake {
+  width: 100%; height: 100%;
+  background:
+    radial-gradient(circle at 30% 40%, rgba(168, 200, 222, 0.3), transparent 60%),
+    radial-gradient(circle at 70% 60%, rgba(232, 180, 176, 0.25), transparent 60%),
+    var(--brown-deep);
+  display: flex; flex-direction: column;
+}
+.vef-bar { height: 6px; background: var(--pink-3); }
+.vef-body { flex: 1; display: flex; align-items: center; justify-content: center; gap: 18px; padding: 20px; }
+.vef-play {
+  width: 70px; height: 70px;
+  background: var(--cream); color: var(--brown-deep);
+  border-radius: 50%; display: grid; place-items: center;
+  font-size: 24px;
+}
+.vef-text { color: var(--cream); }
+.vef-title { font-family: 'Coiny', sans-serif; font-size: 20px; }
+.vef-sub { font-family: ui-monospace, 'SF Mono', Menlo, monospace; font-size: 12px; opacity: .7; margin-top: 4px; }
+
+.sub-cta {
+  display: flex; justify-content: space-between; align-items: center; gap: 24px;
+  background: var(--pink-2);
+  padding: clamp(24px, 4vw, 40px);
+  border-radius: var(--radius);
+  flex-wrap: wrap;
+}
+
+/* ============ NAME CTA on home ============ */
+.name-cta {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: center;
+  background: var(--pink-2);
+  padding: clamp(24px, 4vw, 48px);
+  border-radius: var(--radius-lg);
+}
+.name-cta-text p { color: var(--brown); }
+.name-cta-art {
+  display: flex; flex-wrap: wrap; gap: 12px;
+}
+.name-bubble {
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--cream);
+  font-family: 'Coiny', sans-serif;
+  color: var(--brown-deep);
+  font-size: 18px;
+  box-shadow: var(--shadow);
+}
+.name-bubble.alt { background: var(--blue); color: var(--blue-ink); }
+.name-bubble.alt2 { background: var(--brown-deep); color: var(--cream); }
+@media (min-width: 760px) {
+  .name-cta { grid-template-columns: 1.1fr 1fr; }
+}
+
+/* ============ NAMES PAGE ============ */
+.name-tool {
+  background: var(--cream-2);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 4vw, 40px);
+  display: flex; flex-direction: column; gap: 24px;
+}
+.name-themes {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center;
+}
+.theme {
+  padding: 10px 18px; border-radius: 999px;
+  background: var(--cream); font-weight: 700;
+  color: var(--brown);
+  transition: all .15s;
+  border: 2px solid transparent;
+}
+.theme:hover { border-color: var(--pink-3); }
+.theme.active { background: var(--brown-deep); color: var(--cream); }
+
+.name-stage { display: flex; justify-content: center; }
+.name-card {
+  background: var(--cream);
+  padding: clamp(28px, 5vw, 48px) clamp(24px, 5vw, 56px);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  text-align: center;
+  max-width: 560px; width: 100%;
+  border: 2px dashed var(--pink-3);
+  transition: transform .25s;
+}
+.name-card.pulse { transform: scale(1.02) rotate(-0.5deg); }
+.name-card-eyebrow {
+  font-family: 'Caveat', cursive; font-size: 20px;
+  color: var(--pink-deep); margin-bottom: 8px;
+}
+.name-card-name {
+  font-family: 'Coiny', sans-serif;
+  font-size: clamp(36px, 7vw, 56px);
+  color: var(--brown-deep);
+  line-height: 1.1;
+  text-wrap: balance;
+  margin-bottom: 20px;
+}
+.name-card-actions {
+  display: flex; gap: 10px; flex-wrap: wrap; justify-content: center;
+}
+
+.name-saved { background: var(--cream); border-radius: var(--radius); padding: 24px; }
+.name-saved-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.name-saved-head h3 { color: var(--brown-deep); }
+.name-saved-empty {
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  padding: 20px; text-align: center;
+  color: var(--ink-soft);
+}
+.saved-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; grid-template-columns: 1fr; }
+@media (min-width: 600px) { .saved-list { grid-template-columns: 1fr 1fr; } }
+.saved-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 12px 16px;
+  background: var(--cream-2);
+  border-radius: var(--radius-sm);
+  font-family: 'Coiny', sans-serif;
+  font-size: 17px; color: var(--brown-deep);
+}
+.saved-actions { display: flex; gap: 8px; }
+.saved-actions button {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px; font-weight: 700;
+  color: var(--brown);
+  padding: 4px 10px; border-radius: 999px;
+  background: var(--cream);
+}
+.saved-actions button:hover { background: var(--pink-2); color: var(--pink-deep); }
+
+.curated {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.curated h4 {
+  font-family: 'Caveat', cursive; font-size: 24px;
+  color: var(--pink-deep);
+  margin-bottom: 8px;
+}
+.curated ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+.curated li {
+  padding: 10px 14px;
+  background: var(--cream-2);
+  border-radius: var(--radius-sm);
+  font-family: 'Coiny', sans-serif;
+  color: var(--brown-deep);
+}
+
+/* ============ UPDATES (timeline) ============ */
+.timeline {
+  list-style: none; padding: 0; margin: 0;
+  position: relative;
+  display: flex; flex-direction: column; gap: 28px;
+}
+.timeline::before {
+  content: ''; position: absolute;
+  left: 19px; top: 0; bottom: 0;
+  width: 3px;
+  background: repeating-linear-gradient(to bottom, var(--pink-3) 0 6px, transparent 6px 12px);
+}
+.tl-item { position: relative; padding-left: 60px; }
+.tl-dot {
+  position: absolute; left: 0; top: 8px;
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: var(--pink-3);
+  display: grid; place-items: center;
+  box-shadow: var(--shadow);
+}
+.tl-major .tl-dot { background: var(--pink-deep); }
+.tl-channel .tl-dot { background: var(--brown-deep); }
+.tl-minor .tl-dot { background: var(--blue-ink); }
+.tl-card {
+  background: var(--cream);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  box-shadow: var(--shadow);
+}
+.tl-head { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.tl-head h3 { color: var(--brown-deep); }
+.tl-list { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; color: var(--ink-soft); }
+.tl-list li::marker { color: var(--pink-3); }
+
+/* ============ ABOUT ============ */
+.about {
+  display: grid; grid-template-columns: 1fr; gap: 32px;
+  align-items: start;
+}
+.about-portrait {
+  max-width: 360px;
+  margin: 0 auto;
+  background: var(--cream);
+  padding: 10px 10px 14px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  transform: rotate(-2deg);
+}
+.about-text { display: flex; flex-direction: column; gap: 14px; }
+.about-text h2 { margin-top: 14px; color: var(--brown-deep); }
+.about-text p { color: var(--ink-soft); }
+.about-list { padding-left: 20px; color: var(--ink-soft); display: flex; flex-direction: column; gap: 8px; }
+.about-list strong { color: var(--brown-deep); }
+.facts { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 8px; }
+.fact { background: var(--cream-2); padding: 14px 16px; border-radius: var(--radius-sm); }
+.fact strong { display: block; font-family: 'Coiny', sans-serif; color: var(--brown-deep); font-size: 15px; }
+.fact span { font-size: 14px; color: var(--ink-soft); }
+.about-cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+@media (min-width: 760px) {
+  .about { grid-template-columns: 0.9fr 1.1fr; gap: 48px; }
+  .about-portrait { margin: 0; }
+}
+
+/* ============ NEWSLETTER ============ */
+.newsletter {
+  background: linear-gradient(135deg, var(--pink-2), var(--blue-2));
+  border-radius: var(--radius-lg);
+  padding: clamp(28px, 5vw, 48px);
+}
+.news-inner { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: center; }
+.news-inner p { color: var(--brown); }
+.news-form { display: flex; gap: 10px; flex-wrap: wrap; position: relative; }
+.news-form input {
+  flex: 1; min-width: 200px;
+  padding: 14px 18px;
+  border-radius: 999px;
+  background: var(--cream);
+  border: 2px solid transparent;
+  outline: 0;
+}
+.news-form input[aria-invalid="true"] { border-color: var(--pink-deep); }
+.news-form input:focus { border-color: var(--brown-deep); }
+.news-msg {
+  width: 100%;
+  font-family: 'Caveat', cursive;
+  font-size: 18px;
+  padding-left: 12px;
+}
+.news-msg.err { color: var(--pink-deep); }
+.news-msg.ok { color: var(--brown-deep); }
+@media (min-width: 800px) {
+  .news-inner { grid-template-columns: 1.3fr 1fr; gap: 40px; }
+}
+
+/* ============ FOOTER ============ */
+.ftr {
+  background: var(--brown-deep);
+  color: var(--cream);
+  margin-top: auto;
+}
+.ftr-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 48px var(--pad);
+  display: grid; grid-template-columns: 1fr; gap: 32px;
+}
+.ftr-brand { display: flex; gap: 14px; align-items: center; }
+.ftr-name { font-family: 'Coiny', sans-serif; font-size: 24px; }
+.ftr-tag { font-family: 'Caveat', cursive; font-size: 18px; color: var(--pink-2); }
+.ftr-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.ftr-h { font-family: 'Coiny', sans-serif; font-size: 16px; color: var(--pink-2); margin-bottom: 10px; }
+.ftr-link {
+  display: block; padding: 4px 0;
+  color: var(--cream); opacity: .8;
+  text-align: left; text-decoration: none;
+  font-weight: 600; font-size: 14px;
+}
+.ftr-link:hover { opacity: 1; color: var(--pink-2); }
+.ftr-bottom {
+  border-top: 1px solid rgba(251, 245, 234, 0.12);
+  padding: 18px var(--pad);
+  display: flex; justify-content: space-between; align-items: center;
+  max-width: var(--maxw); margin: 0 auto;
+  font-size: 13px; opacity: .85;
+}
+.ftr-doodle { font-family: 'Caveat', cursive; font-size: 18px; color: var(--pink-2); }
+@media (min-width: 760px) {
+  .ftr-inner { grid-template-columns: 1.2fr 2fr; }
+  .ftr-cols { grid-template-columns: 1fr 1fr; }
+}
+
+</style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef, useMemo } = React;
+
+// ===================== ADMIN GATE =====================
+// Visit ?admin=1 to unlock posting. Saved to localStorage thereafter.
+const ADMIN_KEY = "maregirl_admin";
+const PASSCODE_KEY = "maregirl_passcode_hash";
+
+// Simple SHA-256 hash for passcode storage (so it's not plain text in localStorage)
+const hashPasscode = async (code) => {
+  const buf = new TextEncoder().encode("maregirl_salt::" + code);
+  const hash = await crypto.subtle.digest("SHA-256", buf);
+  return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
+};
+const hasPasscode = () => !!localStorage.getItem(PASSCODE_KEY);
+const verifyPasscode = async (code) => {
+  const stored = localStorage.getItem(PASSCODE_KEY);
+  if (!stored) return false;
+  return (await hashPasscode(code)) === stored;
+};
+const setPasscodeHash = async (code) => {
+  localStorage.setItem(PASSCODE_KEY, await hashPasscode(code));
+};
+const isAdmin = () => {
+  try {
+    // ?admin=0 always signs out
+    const url = new URLSearchParams(window.location.search);
+    if (url.get("admin") === "0") localStorage.removeItem(ADMIN_KEY);
+    return localStorage.getItem(ADMIN_KEY) === "1";
+  } catch { return false; }
+};
+
+// ===================== PASSCODE MODAL =====================
+
+const PasscodeModal = ({ mode, onClose, onSuccess }) => {
+  // mode: "set" | "enter" | "change"
+  const [code, setCode] = useState("");
+  const [confirm, setConfirm] = useState("");
+  const [old, setOld] = useState("");
+  const [err, setErr] = useState("");
+  const [shake, setShake] = useState(false);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+    const onKey = e => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+  }, [onClose]);
+
+  const fail = (msg) => { setErr(msg); setShake(true); setTimeout(() => setShake(false), 400); };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setErr("");
+    if (mode === "set") {
+      if (code.length < 4) return fail("at least 4 characters please ✿");
+      if (code !== confirm) return fail("passcodes don't match");
+      await setPasscodeHash(code);
+      onSuccess();
+    } else if (mode === "enter") {
+      const ok = await verifyPasscode(code);
+      if (!ok) return fail("nope — try again");
+      onSuccess();
+    } else if (mode === "change") {
+      const ok = await verifyPasscode(old);
+      if (!ok) return fail("old passcode is wrong");
+      if (code.length < 4) return fail("at least 4 characters please ✿");
+      if (code !== confirm) return fail("new passcodes don't match");
+      await setPasscodeHash(code);
+      onSuccess();
+    }
+  };
+
+  const titles = {
+    set: "Set your admin passcode",
+    enter: "Welcome back, Mare Girl ✿",
+    change: "Change your passcode",
+  };
+  const subs = {
+    set: "First time here — pick something only you'll remember. You'll need it any time you want to post.",
+    enter: "Enter your passcode to unlock admin mode.",
+    change: "Confirm the old one, then pick a new passcode.",
+  };
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <form className={`modal-post modal-passcode ${shake ? "shake" : ""}`} onClick={e => e.stopPropagation()} onSubmit={submit}>
+        <button type="button" className="modal-close" onClick={onClose} aria-label="Close">×</button>
+        <div className="modal-body">
+          <div className="passcode-stamp"><Horseshoe size={36} color="#7A4A33" /></div>
+          <div className="hero-eyebrow" style={{ justifyContent: "center" }}><Sparkle size={14} color="#D99A9A" /> admin only</div>
+          <h1 className="modal-title" style={{ textAlign: "center" }}>{titles[mode]}</h1>
+          <p style={{ textAlign: "center", color: "var(--ink-soft)", margin: "0 0 8px" }}>{subs[mode]}</p>
+
+          {mode === "change" && (
+            <label className="field">
+              <span>Old passcode</span>
+              <input type="password" value={old} onChange={e => setOld(e.target.value)} autoComplete="current-password" />
+            </label>
+          )}
+
+          <label className="field">
+            <span>{mode === "set" ? "Choose a passcode" : mode === "change" ? "New passcode" : "Passcode"}</span>
+            <input ref={inputRef} type="password" value={code} onChange={e => { setCode(e.target.value); setErr(""); }} autoComplete={mode === "enter" ? "current-password" : "new-password"} />
+          </label>
+
+          {(mode === "set" || mode === "change") && (
+            <label className="field">
+              <span>Confirm passcode</span>
+              <input type="password" value={confirm} onChange={e => setConfirm(e.target.value)} autoComplete="new-password" />
+            </label>
+          )}
+
+          {err && <div className="passcode-err">{err}</div>}
+
+          <div className="modal-footer" style={{ justifyContent: "center" }}>
+            <button type="submit" className="btn btn-brown btn-lg">
+              {mode === "set" ? "✿ Set passcode" : mode === "enter" ? "Unlock ✿" : "Save new passcode"}
+            </button>
+            <button type="button" className="btn btn-outline" onClick={onClose}>Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+};
+const POSTS_KEY = "maregirl_posts";
+const DELETED_KEY = "maregirl_deleted";
+const loadDeleted = () => { try { return JSON.parse(localStorage.getItem(DELETED_KEY) || "[]"); } catch { return []; } };
+const saveDeleted = (l) => { try { localStorage.setItem(DELETED_KEY, JSON.stringify(l)); } catch {} };
+const IMAGES_KEY = "maregirl_images";
+const TEXTS_KEY = "maregirl_texts";
+const LIKES_KEY = "maregirl_likes";
+const loadLikes = () => { try { return JSON.parse(localStorage.getItem(LIKES_KEY) || "{}"); } catch { return {}; } };
+const saveLikes = (m) => { try { localStorage.setItem(LIKES_KEY, JSON.stringify(m)); } catch {} };
+const loadTexts = () => { try { return JSON.parse(localStorage.getItem(TEXTS_KEY) || "{}"); } catch { return {}; } };
+const saveTexts = (m) => { try { localStorage.setItem(TEXTS_KEY, JSON.stringify(m)); } catch {} };
+
+// Global editable context — read by <E> components
+const EditCtx = React.createContext({ texts: {}, setTexts: () => {}, admin: false });
+
+const E = ({ id, tag = "span", children, className, style, multiline = false, ...rest }) => {
+  const { texts, setTexts, admin } = React.useContext(EditCtx);
+  const ref = useRef(null);
+  const Tag = tag;
+  const saved = texts[id];
+  const value = saved !== undefined ? saved : (typeof children === "string" ? children : null);
+
+  // Keep DOM in sync only when not focused (to avoid caret jumping while typing)
+  useEffect(() => {
+    if (!admin || !ref.current) return;
+    if (document.activeElement === ref.current) return;
+    const want = value ?? "";
+    if (ref.current.innerText !== want) ref.current.innerText = want;
+  }, [value, admin]);
+
+  if (!admin) {
+    if (multiline && typeof value === "string") {
+      return <Tag className={className} style={style} {...rest}>
+        {value.split("\n").map((line, i) => <React.Fragment key={i}>{i > 0 && <br />}{line}</React.Fragment>)}
+      </Tag>;
+    }
+    return <Tag className={className} style={style} {...rest}>{value ?? children}</Tag>;
+  }
+
+  return (
+    <Tag
+      ref={ref}
+      contentEditable
+      suppressContentEditableWarning
+      className={`${className || ""} editable`}
+      style={style}
+      onBlur={(e) => {
+        const text = multiline ? e.target.innerText : e.target.innerText.replace(/\n/g, " ");
+        const next = { ...texts, [id]: text };
+        setTexts(next);
+        saveTexts(next);
+      }}
+      onKeyDown={(e) => {
+        if (!multiline && e.key === "Enter") { e.preventDefault(); e.target.blur(); }
+        if (e.key === "Escape") e.target.blur();
+      }}
+      {...rest}
+    >
+      {value ?? (typeof children === "string" ? children : "")}
+    </Tag>
+  );
+};
+const loadImages = () => { try { return JSON.parse(localStorage.getItem(IMAGES_KEY) || "{}"); } catch { return {}; } };
+const saveImages = (m) => { try { localStorage.setItem(IMAGES_KEY, JSON.stringify(m)); } catch {} };
+
+const ImageSlot = ({ slotKey, label, aspect = "3 / 4", tone = "pink", images, setImages, admin }) => {
+  const ref = useRef(null);
+  const src = images[slotKey];
+  const onPick = (e) => {
+    const f = e.target.files?.[0]; if (!f) return;
+    const r = new FileReader();
+    r.onload = ev => { const next = { ...images, [slotKey]: ev.target.result }; setImages(next); saveImages(next); };
+    r.readAsDataURL(f);
+  };
+  const clear = (e) => { e.stopPropagation(); const next = { ...images }; delete next[slotKey]; setImages(next); saveImages(next); };
+  return (
+    <div className="img-slot" style={{ aspectRatio: aspect, position: "relative" }} onClick={() => admin && ref.current?.click()}>
+      {src ? <img src={src} alt={label} className="img-slot-img" /> : <Placeholder label={label} aspect={aspect} tone={tone} />}
+      {admin && (
+        <React.Fragment>
+          <input ref={ref} type="file" accept="image/*" onChange={onPick} style={{ display: "none" }} />
+          <div className="img-slot-hint">{src ? "click to change" : "click to upload"}</div>
+          {src && <button className="img-slot-clear" onClick={clear} title="Remove">×</button>}
+        </React.Fragment>
+      )}
+    </div>
+  );
+};
+const loadUserPosts = () => {
+  try { return JSON.parse(localStorage.getItem(POSTS_KEY) || "[]"); } catch { return []; }
+};
+const saveUserPosts = (list) => {
+  try { localStorage.setItem(POSTS_KEY, JSON.stringify(list)); } catch {}
+};
+
+// ===================== DATA =====================
+const BLOG_POSTS = [
+  {
+    id: 1,
+    title: "Heartside diaries: my first week in Evervale ✿",
+    category: "Diary",
+    date: "May 4, 2026",
+    readMins: 4,
+    excerpt: "I logged in expecting a quick tour of Heartside and ended up sprinting after Snowdrop with three new foals in tow. Here's everything that happened on day one in Evervale — and why I'm already obsessed.",
+    cover: "Heartside town square at sunset",
+  },
+  {
+    id: 2,
+    title: "Top 10 cutest mane & tail combos this season",
+    category: "Style",
+    date: "Apr 28, 2026",
+    readMins: 6,
+    excerpt: "A very serious ranking of the prettiest hairstyles, from braided buttercream to wild meadow waves. Number 4 made my chat scream.",
+    cover: "braided palomino mane closeup",
+  },
+  {
+    id: 3,
+    title: "Breeder's Legacy: how I got my first dappled foal 🌸",
+    category: "Guides",
+    date: "Apr 22, 2026",
+    readMins: 9,
+    excerpt: "Pairings, color genetics in plain English, and the absurd amount of carrots I bribed my mare with. Beginner-friendly, screenshot-heavy — and yes, your foal really does follow you around like a pet.",
+    cover: "foal nuzzling its dam",
+  },
+  {
+    id: 4,
+    title: "5 tiny things in the new patch nobody is talking about",
+    category: "Updates",
+    date: "Apr 18, 2026",
+    readMins: 3,
+    excerpt: "Hoof prints in the Witberg snow! Lanterns sway in Agricola! The Heartside barn cat has a NAME. I'm losing my mind over the little stuff so you don't have to.",
+    cover: "lantern detail in the barn loft",
+  },
+  {
+    id: 5,
+    title: "Naming my new Friesian — chat voted and we have chaos",
+    category: "Diary",
+    date: "Apr 12, 2026",
+    readMins: 5,
+    excerpt: "I asked for suggestions. I got 'Sir Clompsalot the Third.' He answers to it now. There is no going back.",
+    cover: "black friesian portrait",
+  },
+  {
+    id: 6,
+    title: "How to get gems in Star Equestrian Horse Ranch 💎",
+    category: "Guides",
+    date: "Apr 6, 2026",
+    readMins: 5,
+    excerpt: "Gems are the shiny premium currency you'll want for fancy tack, special foals, and stable upgrades. Here's every way I've found to stack them up without spending real money — daily logins, quests, achievements, level-ups, events, and the Star VIP perk that quietly hands you gems every day.",
+    cover: "pile of gems and coins icon",
+  },
+];
+
+const CATEGORIES = ["All", "Diary", "Guides", "Style", "Updates"];
+
+// Real videos from @MareGirl_sehr — titles are placeholders until shared; thumbnails + links are live
+const SHORTS = [
+  "tUf48XyQWiI",
+  "o1Wz2jcmRqk",
+  "ZGbT2euMW3k",
+  "fR_UusjMYNU",
+  "yjFQown1WoU",
+  "W0QV4OVaRG8",
+  "H4QIquA4Tyw",
+];
+
+const VIDEOS = [
+  { id: "v1", ytId: "dmjJi35YKU8", title: "Latest upload from the ranch", days: 3, tag: "Star Equestrian", real: true },
+  { id: "v2", ytId: "lTqXgFFfoio", title: "More from Evervale", days: 9, tag: "Star Equestrian", real: true },
+  { id: "v3", ytId: "bStS2Ctgfbk", title: "Another adventure in Heartside", days: 18, tag: "Star Equestrian", real: true },
+  { id: "v4", ytId: "SaWvQWYEs9E", title: "Star Equestrian gameplay", days: 24, tag: "Star Equestrian", real: true },
+  { id: "v5", ytId: "XteLPsydyXc", title: "More Star Equestrian fun", days: 31, tag: "Star Equestrian", real: true },
+  { id: "v6", ytId: "nLujf3r-zF8", title: "Horse ranch shenanigans", days: 40, tag: "Star Equestrian", real: true },
+  { id: "v7", ytId: "SknsLtjWwQ0", title: "Riding through Evervale", days: 48, tag: "Star Equestrian", real: true },
+];
+
+const NAME_PARTS = {
+  whimsy: {
+    label: "Whimsical",
+    first: ["Buttercup", "Marshmallow", "Honey", "Clover", "Peaches", "Biscuit", "Pudding", "Cinnamon", "Daisy", "Sprinkle", "Pickles", "Waffle"],
+    second: ["Bumble", "Twinkle", "Tippytoes", "Snickers", "Whiskers", "Bumpkin", "Doodle", "Pocket", "Nibbles", "Sparkles"],
+  },
+  regal: {
+    label: "Regal",
+    first: ["Lady", "Sir", "Duchess", "Prince", "Baron", "Countess", "Lord", "Empress"],
+    second: ["Aurelius", "Beaumont", "Seraphine", "Hawthorne", "Eveline", "Montague", "Isolde", "Ashford", "Calliope", "Theodora"],
+  },
+  myth: {
+    label: "Mythical",
+    first: ["Moon", "Star", "Storm", "Ember", "Frost", "Dusk", "Dawn", "River", "Echo", "Sable"],
+    second: ["weaver", "chaser", "song", "fall", "born", "dancer", "whisper", "shade", "wing", "tide"],
+  },
+  food: {
+    label: "Snack-coded",
+    first: ["Mocha", "Toffee", "Latte", "Cocoa", "Pretzel", "Crumpet", "Pancake", "Truffle", "Maple", "Custard"],
+    second: ["Bean", "Bite", "Crumb", "Drizzle", "Glaze", "Spoon", "Loaf", "Cake", "Puff", "Tart"],
+  },
+};
+
+const UPDATES = [
+  {
+    version: "Breeder's Legacy — May 1, 2026",
+    tone: "major",
+    items: [
+      "Big update to the breeding system: lineage tracking, dappled coat patterns, and rare color rolls when you pair within a stable line.",
+      "Foal personality traits: shy, bold, curious, or sleepy. They actually behave differently when they follow you around and it is RUINING me.",
+      "Seasonal tack shop refresh — pastel everything in Heartside, including a saddle pad shaped like a strawberry.",
+    ],
+  },
+  {
+    version: "Patch 4.2 — Apr 15, 2026",
+    tone: "minor",
+    items: [
+      "Stable mucking finally has a 'hold to clean all' option. We are free.",
+      "Fixed the bug where horses occasionally moonwalked at canter through Agricola (RIP, will be missed).",
+      "Heartside barn cat (Beans) now has dialogue. He is rude. I love him.",
+    ],
+  },
+  {
+    version: "Patch 4.1 — Mar 30, 2026",
+    tone: "minor",
+    items: [
+      "Photo mode: filters, frames, and a hands-free tripod pose.",
+      "You can now name your tack. Yes, individually. Yes, I named my brush.",
+    ],
+  },
+  {
+    version: "Channel update — Mar 18, 2026",
+    tone: "channel",
+    items: [
+      "We hit 50K subs!! Thank you. Genuinely. I made a video crying about it.",
+      "New long-form video every week, with Shorts dropping in between — follow @MareGirl_sehr so you don't miss them.",
+      "Working on a beginner series. First episode drops in April.",
+    ],
+  },
+];
+
+// ===================== SHARED BITS =====================
+
+const Horseshoe = ({ size = 22, color = "currentColor" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <g transform="translate(0 24) scale(1 -1)">
+    {/* U-shaped band with thickness — outer + inner curve via evenodd */}
+    <path
+      fillRule="evenodd"
+      clipRule="evenodd"
+      d="M4 4 Q4 14 8 19 Q10 21 12 21 Q14 21 16 19 Q20 14 20 4 L16.5 4 Q16.5 12.5 13.8 16.2 Q12.9 17.4 12 17.4 Q11.1 17.4 10.2 16.2 Q7.5 12.5 7.5 4 Z"
+      fill={color}
+    />
+    <circle cx="5.75" cy="4" r="1.9" fill={color} />
+    <circle cx="18.25" cy="4" r="1.9" fill={color} />
+    <circle cx="5.6" cy="8" r="0.55" fill="#FBF5EA" />
+    <circle cx="6.4" cy="12" r="0.55" fill="#FBF5EA" />
+    <circle cx="8.2" cy="15.6" r="0.55" fill="#FBF5EA" />
+    <circle cx="18.4" cy="8" r="0.55" fill="#FBF5EA" />
+    <circle cx="17.6" cy="12" r="0.55" fill="#FBF5EA" />
+    <circle cx="15.8" cy="15.6" r="0.55" fill="#FBF5EA" />
+    </g>
+  </svg>
+);
+
+const Sparkle = ({ size = 12, color = "currentColor" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 2 L13.6 9.6 L21 12 L13.6 14.4 L12 22 L10.4 14.4 L3 12 L10.4 9.6 Z" fill={color} />
+  </svg>
+);
+
+const Placeholder = ({ label, aspect = "4 / 3", tone = "pink" }) => {
+  const tones = {
+    pink:  { bg: "#F3D2CE", stripe: "#E8B4B0", ink: "#7A4A33" },
+    cream: { bg: "#F1E6D2", stripe: "#E4D3B5", ink: "#7A4A33" },
+    blue:  { bg: "#CADBE6", stripe: "#A8C8DE", ink: "#3D5A6B" },
+    brown: { bg: "#D9C2B0", stripe: "#BFA48E", ink: "#5A3623" },
+  };
+  const t = tones[tone] || tones.pink;
+  return (
+    <div
+      className="ph"
+      style={{
+        aspectRatio: aspect,
+        background: `repeating-linear-gradient(135deg, ${t.bg} 0 14px, ${t.stripe} 14px 28px)`,
+        color: t.ink,
+      }}
+    >
+      <span className="ph-label">{label}</span>
+    </div>
+  );
+};
+
+const Tag = ({ children, tone = "pink" }) => (
+  <span className={`tag tag-${tone}`}>{children}</span>
+);
+
+// ===================== HEADER / NAV =====================
+
+const PAGES = [
+  { id: "home", label: "Home" },
+  { id: "blog", label: "Blog" },
+  { id: "videos", label: "Videos" },
+  { id: "names", label: "Names" },
+  { id: "updates", label: "Updates" },
+  { id: "about", label: "About" },
+];
+
+const Header = ({ page, onNav, menuOpen, setMenuOpen }) => (
+  <header className="hdr">
+    <div className="hdr-inner">
+      <button className="brand" onClick={() => { onNav("home"); setMenuOpen(false); }}>
+        <span className="brand-mark">
+          <Horseshoe size={26} color="#7A4A33" />
+        </span>
+        <span className="brand-text">
+          <span className="brand-name">Mare Girl</span>
+          <span className="brand-sub">@MareGirl_sehr · Star Equestrian ✿</span>
+        </span>
+      </button>
+
+      <nav className="nav-desktop">
+        {PAGES.map(p => (
+          <button
+            key={p.id}
+            className={`nav-link ${page === p.id ? "active" : ""}`}
+            onClick={() => onNav(p.id)}
+          >
+            {p.label}
+            {page === p.id && <span className="nav-underline" />}
+          </button>
+        ))}
+      </nav>
+
+      <button
+        className="menu-btn"
+        aria-label="Menu"
+        aria-expanded={menuOpen}
+        onClick={() => setMenuOpen(v => !v)}
+      >
+        <span className={`burger ${menuOpen ? "open" : ""}`}>
+          <span></span><span></span><span></span>
+        </span>
+      </button>
+    </div>
+
+    <div className={`mob-menu ${menuOpen ? "open" : ""}`}>
+      {PAGES.map(p => (
+        <button
+          key={p.id}
+          className={`mob-link ${page === p.id ? "active" : ""}`}
+          onClick={() => { onNav(p.id); setMenuOpen(false); }}
+        >
+          <Horseshoe size={16} color={page === p.id ? "#fff" : "#7A4A33"} />
+          <span>{p.label}</span>
+        </button>
+      ))}
+    </div>
+  </header>
+);
+
+const Footer = ({ onNav }) => (
+  <footer className="ftr">
+    <div className="ftr-inner">
+      <div className="ftr-brand">
+        <Horseshoe size={28} color="#FBF5EA" />
+        <div>
+          <div className="ftr-name">Mare Girl</div>
+          <div className="ftr-tag">made with hay & love · 2026</div>
+        </div>
+      </div>
+      <div className="ftr-cols">
+        <div>
+          <div className="ftr-h">Wander</div>
+          {PAGES.map(p => (
+            <button key={p.id} className="ftr-link" onClick={() => onNav(p.id)}>{p.label}</button>
+          ))}
+        </div>
+        <div>
+          <div className="ftr-h">Find me</div>
+          <a className="ftr-link" href="https://www.youtube.com/@MareGirl_sehr" target="_blank" rel="noopener">YouTube · @MareGirl_sehr</a>
+          <a className="ftr-link" href="#" onClick={e => e.preventDefault()}>Twitch</a>
+          <a className="ftr-link" href="#" onClick={e => e.preventDefault()}>TikTok</a>
+          <a className="ftr-link" href="#" onClick={e => e.preventDefault()}>Discord</a>
+        </div>
+      </div>
+    </div>
+    <div className="ftr-bottom">
+      <span>© 2026 Mare GirlVT</span>
+      <span className="ftr-doodle">✿ ✦ ❀ ✦ ✿</span>
+    </div>
+  </footer>
+);
+
+// ===================== POST CARD =====================
+
+const PostCard = ({ post, likes, onLike, featured, onRead, onDelete, admin }) => {
+  const toneIdx = typeof post.id === "number" ? post.id : (post.id || "").length;
+  return (
+  <article className={`post ${featured ? "post-featured" : ""}`}>
+    <div className="post-media" onClick={() => onRead && onRead(post)} style={{ cursor: "pointer" }}>
+      {post.image ? (
+        <img src={post.image} alt={post.title} className="post-img" />
+      ) : (
+        <Placeholder label={post.cover || post.title} tone={featured ? "pink" : ["pink","cream","blue","brown"][toneIdx % 4]} />
+      )}
+      <span className="post-cat">{post.category}</span>
+      {post.userMade && <span className="post-userbadge">✿ new</span>}
+    </div>
+    <div className="post-body">
+      <div className="post-meta">
+        <span>{post.date}</span>
+        <span className="dot">·</span>
+        <span>{post.readMins || 3} min read</span>
+      </div>
+      <h3 className="post-title" onClick={() => onRead && onRead(post)} style={{ cursor: "pointer" }}>{post.title}</h3>
+      <p className="post-excerpt">{post.excerpt}</p>
+      <div className="post-actions">
+        <button className="btn btn-ghost" onClick={() => onLike(post.id)}>
+          <span className={`heart ${likes[post.id] ? "lit" : ""}`}>♥</span>
+          <span>{(likes[post.id] || 0) + ((typeof post.id === "number" ? post.id : 1) * 7 + 23)}</span>
+        </button>
+        <div style={{ display: "flex", gap: 8 }}>
+          {admin && (
+            <button className="btn btn-ghost" onClick={() => onDelete(post.id)} title="Delete this post">🗑</button>
+          )}
+          <button className="btn btn-pink" onClick={() => onRead && onRead(post)}>Read post →</button>
+        </div>
+      </div>
+    </div>
+  </article>
+  );
+};
+
+// ===================== POST DETAIL MODAL =====================
+
+const PostDetail = ({ post, onClose, likes, onLike }) => {
+  useEffect(() => {
+    const onKey = e => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+  }, [onClose]);
+
+  if (!post) return null;
+  const body = post.body || post.excerpt + "\n\nMore writing coming soon! This post hasn't been fully written out yet — for now, peek at the videos page for the real ranch content.";
+  const toneIdx = typeof post.id === "number" ? post.id : (post.id || "").length;
+  const paragraphs = body.split(/\n\n+/);
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <article className="modal-post" onClick={e => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose} aria-label="Close">×</button>
+        <div className="modal-cover">
+          {post.image ? (
+            <img src={post.image} alt={post.title} className="post-img" />
+          ) : (
+            <Placeholder label={post.cover || post.title} tone={["pink","cream","blue","brown"][toneIdx % 4]} aspect="16 / 7" />
+          )}
+        </div>
+        <div className="modal-body">
+          <div className="post-meta">
+            <Tag tone="pink">{post.category}</Tag>
+            <span>{post.date}</span>
+            <span className="dot">·</span>
+            <span>{post.readMins || 3} min read</span>
+          </div>
+          <h1 className="modal-title">{post.title}</h1>
+          <div className="modal-content">
+            {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+          </div>
+          <div className="modal-footer">
+            <button className="btn btn-pink" onClick={() => onLike(post.id)}>
+              <span className={`heart ${likes[post.id] ? "lit" : ""}`}>♥</span>
+              <span>{(likes[post.id] || 0) + ((typeof post.id === "number" ? post.id : 1) * 7 + 23)} loves</span>
+            </button>
+            <button className="btn btn-outline" onClick={onClose}>← back to the barn</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  );
+};
+
+// ===================== NEW POST FORM (admin) =====================
+
+const NewPostForm = ({ onClose, onSave }) => {
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("Diary");
+  const [excerpt, setExcerpt] = useState("");
+  const [body, setBody] = useState("");
+  const [image, setImage] = useState("");
+  const [cover, setCover] = useState("");
+  const fileRef = useRef(null);
+
+  useEffect(() => {
+    const onKey = e => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => { window.removeEventListener("keydown", onKey); document.body.style.overflow = ""; };
+  }, [onClose]);
+
+  const onPickFile = (e) => {
+    const f = e.target.files?.[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = ev => setImage(ev.target.result);
+    reader.readAsDataURL(f);
+  };
+
+  const submit = (e) => {
+    e.preventDefault();
+    if (!title.trim() || !excerpt.trim()) return;
+    const today = new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" });
+    const post = {
+      id: "u_" + Date.now(),
+      userMade: true,
+      title: title.trim(),
+      category,
+      date: today,
+      readMins: Math.max(2, Math.ceil((body || excerpt).split(/\s+/).length / 200)),
+      excerpt: excerpt.trim(),
+      body: body.trim(),
+      image: image || "",
+      cover: cover.trim() || title.trim(),
+    };
+    onSave(post);
+    onClose();
+  };
+
+  return (
+    <div className="modal-backdrop" onClick={onClose}>
+      <form className="modal-post modal-form" onClick={e => e.stopPropagation()} onSubmit={submit}>
+        <button type="button" className="modal-close" onClick={onClose} aria-label="Close">×</button>
+        <div className="modal-body">
+          <div className="hero-eyebrow"><Sparkle size={14} color="#D99A9A" /> mare girl only ✿</div>
+          <h1 className="modal-title">Write a new post</h1>
+
+          <label className="field">
+            <span>Title</span>
+            <input value={title} onChange={e => setTitle(e.target.value)} placeholder="My new adventure in Heartside..." required />
+          </label>
+
+          <div className="field-row">
+            <label className="field">
+              <span>Category</span>
+              <select value={category} onChange={e => setCategory(e.target.value)}>
+                {CATEGORIES.filter(c => c !== "All").map(c => <option key={c}>{c}</option>)}
+              </select>
+            </label>
+            <label className="field">
+              <span>Cover label (if no image)</span>
+              <input value={cover} onChange={e => setCover(e.target.value)} placeholder="sunset over the paddock" />
+            </label>
+          </div>
+
+          <label className="field">
+            <span>Short excerpt (shown on cards)</span>
+            <textarea value={excerpt} onChange={e => setExcerpt(e.target.value)} rows={2} placeholder="One or two sentences to hook readers..." required />
+          </label>
+
+          <label className="field">
+            <span>Full post body</span>
+            <textarea value={body} onChange={e => setBody(e.target.value)} rows={8} placeholder="Write the post here. Use a blank line between paragraphs." />
+          </label>
+
+          <label className="field">
+            <span>Cover image (optional)</span>
+            <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+              <button type="button" className="btn btn-outline btn-sm" onClick={() => fileRef.current?.click()}>
+                {image ? "Change image" : "Upload image"}
+              </button>
+              <input ref={fileRef} type="file" accept="image/*" onChange={onPickFile} style={{ display: "none" }} />
+              {image && <button type="button" className="btn btn-ghost" onClick={() => setImage("")}>remove</button>}
+              {image && <img src={image} alt="" style={{ height: 60, borderRadius: 10 }} />}
+            </div>
+          </label>
+
+          <div className="modal-footer">
+            <button type="submit" className="btn btn-brown btn-lg">✿ Publish post</button>
+            <button type="button" className="btn btn-outline" onClick={onClose}>Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+};
+
+// ===================== HOME =====================
+
+const Home = ({ onNav, likes, onLike, posts, onRead, images, setImages, admin }) => {
+  const [featured, ...rest] = posts;
+  return (
+    <div className="page">
+      {/* Hero */}
+      <section className="hero">
+        <div className="hero-text">
+          <E id="hero.eyebrow" tag="div" className="hero-eyebrow">
+            hi hi, welcome to the paddock
+          </E>
+          <E id="hero.title" tag="h1" className="hero-title" multiline>A cozy little corner for Star Equestrian Horse Ranch & the horse girls who love it.</E>
+          <E id="hero.sub" tag="p" className="hero-sub" multiline>I'm Mare Girl — vtuber, hobby breeder of fictional ponies, and full-time horse name overthinker. Pull up a haybale.</E>
+          <div className="hero-cta">
+            <button className="btn btn-brown" onClick={() => onNav("blog")}>Read the blog</button>
+            <button className="btn btn-outline" onClick={() => onNav("videos")}>Watch videos →</button>
+          </div>
+          <div className="hero-stats">
+            <div><E id="hero.stat1.n" tag="strong">25</E><E id="hero.stat1.l" tag="span">subscribers</E></div>
+            <div><E id="hero.stat2.n" tag="strong">7</E><E id="hero.stat2.l" tag="span">videos</E></div>
+            <div><E id="hero.stat3.n" tag="strong">7</E><E id="hero.stat3.l" tag="span">shorts</E></div>
+          </div>
+        </div>
+        <div className="hero-art">
+          <div className="hero-card hero-card-1">
+            <ImageSlot slotKey="avatar" label="Mare Girl avatar / vtuber model" aspect="3 / 4" tone="pink" images={images} setImages={setImages} admin={admin} />
+            <E id="hero.card1.label" tag="div" className="hero-card-label">that's me ✿</E>
+          </div>
+          <div className="hero-card hero-card-2">
+            <ImageSlot slotKey="horse" label="favorite mare portrait" aspect="1 / 1" tone="blue" images={images} setImages={setImages} admin={admin} />
+            <E id="hero.card2.label" tag="div" className="hero-card-label">my girl ♥</E>
+          </div>
+          <div className="hero-blob hero-blob-1" />
+          <div className="hero-blob hero-blob-2" />
+          <div className="hero-stamp">
+            <Horseshoe size={42} color="#7A4A33" />
+          </div>
+        </div>
+      </section>
+
+      {/* Featured */}
+      <section className="sec">
+        <div className="sec-head">
+          <div>
+            <E id="home.s1.kicker" tag="div" className="sec-kicker">fresh from the saddle</E>
+            <E id="home.s1.title" tag="h2" className="sec-title">Latest post</E>
+          </div>
+          <button className="link-btn" onClick={() => onNav("blog")}>all posts →</button>
+        </div>
+        <PostCard post={featured} likes={likes} onLike={onLike} featured onRead={onRead} />
+      </section>
+
+      {/* Recent posts grid */}
+      <section className="sec">
+        <div className="sec-head">
+          <div>
+            <E id="home.s2.kicker" tag="div" className="sec-kicker">more from the barn</E>
+            <E id="home.s2.title" tag="h2" className="sec-title">Recent ramblings</E>
+          </div>
+        </div>
+        <div className="grid grid-3">
+          {rest.slice(0, 3).map(p => (
+            <PostCard key={p.id} post={p} likes={likes} onLike={onLike} onRead={onRead} />
+          ))}
+        </div>
+      </section>
+
+      {/* Videos teaser */}
+      <section className="sec sec-tinted">
+        <div className="sec-head">
+          <div>
+            <E id="home.s3.kicker" tag="div" className="sec-kicker">on the channel</E>
+            <E id="home.s3.title" tag="h2" className="sec-title">Recent videos</E>
+          </div>
+          <button className="link-btn" onClick={() => onNav("videos")}>all videos →</button>
+        </div>
+        <div className="grid grid-3">
+          {VIDEOS.slice(0, 3).map(v => <VideoCard key={v.id} video={v} compact />)}
+        </div>
+      </section>
+
+      {/* Name CTA */}
+      <section className="sec">
+        <div className="name-cta">
+          <div className="name-cta-text">
+            <E id="home.namecta.eyebrow" tag="div" className="hero-eyebrow">need a name, right now?</E>
+            <E id="home.namecta.title" tag="h2" className="sec-title">The Horse Name Generator™</E>
+            <E id="home.namecta.body" tag="p" multiline>Pick a vibe, mash the button, save your faves. Yes it's silly. Yes I use it constantly.</E>
+            <button className="btn btn-pink" onClick={() => onNav("names")}>Generate a name →</button>
+          </div>
+          <div className="name-cta-art">
+            <div className="name-bubble">Buttercup Bumble</div>
+            <div className="name-bubble alt">Lady Seraphine</div>
+            <div className="name-bubble alt2">Moonweaver</div>
+            <div className="name-bubble">Mocha Bean</div>
+          </div>
+        </div>
+      </section>
+
+      <Newsletter />
+    </div>
+  );
+};
+
+// ===================== BLOG =====================
+
+const Blog = ({ likes, onLike, posts, onRead, admin, onDelete, onNewPost, hiddenCount, onRestoreAll }) => {
+  const [cat, setCat] = useState("All");
+  const [q, setQ] = useState("");
+  const [sort, setSort] = useState("Newest");
+
+  const filtered = useMemo(() => {
+    let list = posts.filter(p =>
+      (cat === "All" || p.category === cat) &&
+      (q === "" || (p.title + p.excerpt).toLowerCase().includes(q.toLowerCase()))
+    );
+    if (sort === "Most loved") list = [...list].sort((a, b) => {
+      const aId = typeof a.id === "number" ? a.id : 1;
+      const bId = typeof b.id === "number" ? b.id : 1;
+      return ((likes[b.id]||0)+bId*7+23) - ((likes[a.id]||0)+aId*7+23);
+    });
+    return list;
+  }, [cat, q, sort, likes, posts]);
+
+  return (
+    <div className="page">
+      <section className="page-head">
+        <E id="blog.eyebrow" tag="div" className="hero-eyebrow">the blog</E>
+        <E id="blog.title" tag="h1" className="page-title">Field notes from the ranch</E>
+        <E id="blog.lede" tag="p" className="page-lede" multiline>Diaries, guides, style hauls, and very long-winded thoughts about coat genetics. Filter your vibe below.</E>
+        {admin && (
+          <div style={{ marginTop: 10, display: "flex", gap: 10, flexWrap: "wrap", alignItems: "center" }}>
+            <button className="btn btn-brown" onClick={onNewPost}>✚ New post</button>
+            {hiddenCount > 0 && (
+              <button className="btn btn-outline btn-sm" onClick={onRestoreAll}>
+                ↺ Restore {hiddenCount} hidden post{hiddenCount === 1 ? "" : "s"}
+              </button>
+            )}
+          </div>
+        )}
+      </section>
+
+      <div className="filters">
+        <div className="chips">
+          {CATEGORIES.map(c => (
+            <button
+              key={c}
+              className={`chip ${cat === c ? "active" : ""}`}
+              onClick={() => setCat(c)}
+            >
+              {c}
+            </button>
+          ))}
+        </div>
+        <div className="filters-right">
+          <div className="search">
+            <span>⌕</span>
+            <input
+              placeholder="search posts…"
+              value={q}
+              onChange={e => setQ(e.target.value)}
+            />
+          </div>
+          <select className="select" value={sort} onChange={e => setSort(e.target.value)}>
+            <option>Newest</option>
+            <option>Most loved</option>
+          </select>
+        </div>
+      </div>
+
+      {filtered.length === 0 ? (
+        <div className="empty">
+          <Horseshoe size={48} color="#D99A9A" />
+          <h3>No posts here yet.</h3>
+          <p>Try a different category or clear your search.</p>
+        </div>
+      ) : (
+        <div className="grid grid-2">
+          {filtered.map(p => <PostCard key={p.id} post={p} likes={likes} onLike={onLike} onRead={onRead} admin={admin} onDelete={onDelete} />)}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// ===================== VIDEOS =====================
+
+const VideoCard = ({ video, compact, onPlay }) => {
+  const thumb = video.ytId ? `https://img.youtube.com/vi/${video.ytId}/hqdefault.jpg` : null;
+  return (
+  <article className={`video ${compact ? "video-compact" : ""}`}>
+    <button className="video-thumb" onClick={() => onPlay && onPlay(video)}>
+      {thumb ? (
+        <img src={thumb} alt={video.title} className="video-thumb-img" />
+      ) : (
+        <Placeholder label={`thumbnail · ${video.title}`} aspect="16 / 9" tone="blue" />
+      )}
+      <span className="play-btn" aria-hidden="true">▶</span>
+      {video.duration && <span className="video-dur">{video.duration}</span>}
+      {video.real && <span className="video-real">LIVE · from channel</span>}
+    </button>
+    <div className="video-body">
+      <Tag tone="blue">{video.tag}</Tag>
+      <h3 className="video-title">{video.title}</h3>
+      <div className="video-meta">
+        {video.views ? `${video.views} views · ` : ""}{video.days}d ago
+        {video.ytId && <React.Fragment> · <a href={`https://youtu.be/${video.ytId}`} target="_blank" rel="noopener" onClick={e => e.stopPropagation()}>open ↗</a></React.Fragment>}
+      </div>
+    </div>
+  </article>
+  );
+};
+
+const Videos = () => {
+  const [tag, setTag] = useState("All");
+  const [playing, setPlaying] = useState(null);
+  const tags = ["All", ...Array.from(new Set(VIDEOS.map(v => v.tag)))];
+  const list = tag === "All" ? VIDEOS : VIDEOS.filter(v => v.tag === tag);
+
+  return (
+    <div className="page">
+      <section className="page-head">
+        <E id="videos.eyebrow" tag="div" className="hero-eyebrow">the channel</E>
+        <E id="videos.title" tag="h1" className="page-title">@MareGirl_sehr on YouTube</E>
+        <E id="videos.lede" tag="p" className="page-lede" multiline>Streams, guides, and the occasional crying-about-a-foal video from Evervale. New uploads about once a week — plus Shorts in between.</E>
+      </section>
+
+      {/* Featured / embed */}
+      <section className="video-feature">
+        <div className="video-feature-frame">
+          {playing ? (
+            <div className="video-embed">
+              <div className="video-embed-inner">
+                {playing.ytId ? (
+                  <iframe
+                    src={`https://www.youtube.com/embed/${playing.ytId}?autoplay=1`}
+                    title={playing.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{ width: '100%', height: '100%', border: 0 }}
+                  />
+                ) : (
+                  <div className="video-embed-fake">
+                    <div className="vef-bar" />
+                    <div className="vef-body">
+                      <div className="vef-play">▶</div>
+                      <div className="vef-text">
+                        <div className="vef-title">{playing.title}</div>
+                        <div className="vef-sub">YouTube embed slot · link not set yet</div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+              <button className="btn btn-outline btn-sm" onClick={() => setPlaying(null)}>← back to picks</button>
+            </div>
+          ) : (
+            <React.Fragment>
+              {VIDEOS[0].ytId ? (
+                <img src={`https://img.youtube.com/vi/${VIDEOS[0].ytId}/hqdefault.jpg`} alt={VIDEOS[0].title} className="video-feature-img" />
+              ) : (
+                <Placeholder label="pinned video · hero thumbnail" aspect="16 / 9" tone="blue" />
+              )}
+              <button className="play-btn-lg" onClick={() => setPlaying(VIDEOS[0])}>
+                <span>▶</span>
+              </button>
+              <div className="video-feature-meta">
+                <Tag tone="pink">Pinned</Tag>
+                <h2>{VIDEOS[0].title}</h2>
+                <div className="video-meta">{VIDEOS[0].days}d ago · <a href={`https://youtu.be/${VIDEOS[0].ytId}`} target="_blank" rel="noopener">watch on YouTube ↗</a></div>
+              </div>
+            </React.Fragment>
+          )}
+        </div>
+      </section>
+
+      <div className="chips chips-center">
+        {tags.map(t => (
+          <button key={t} className={`chip ${tag === t ? "active" : ""}`} onClick={() => setTag(t)}>{t}</button>
+        ))}
+      </div>
+
+      <div className="grid grid-3">
+        {list.map(v => <VideoCard key={v.id} video={v} onPlay={setPlaying} />)}
+      </div>
+
+      <section className="shorts">
+        <div className="sec-head">
+          <div>
+            <E id="videos.shorts.kicker" tag="div" className="sec-kicker">bite-sized</E>
+            <E id="videos.shorts.title" tag="h2" className="sec-title">Shorts</E>
+            <E id="videos.shorts.lede" tag="p" className="page-lede" multiline>Quick clips from the ranch — find them all on the channel.</E>
+          </div>
+          <a className="link-btn" href="https://www.youtube.com/@MareGirl_sehr/shorts" target="_blank" rel="noopener">all shorts →</a>
+        </div>
+        <div className="shorts-row">
+          {SHORTS.map((sid, i) => (
+            <a key={sid} className="short-card" href={`https://youtube.com/shorts/${sid}`} target="_blank" rel="noopener">
+              <img src={`https://img.youtube.com/vi/${sid}/hqdefault.jpg`} alt={`Short ${i+1}`} className="short-img" />
+              <span className="short-play">▶</span>
+              <span className="short-tag">SHORT</span>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      <div className="sub-cta">
+        <div>
+          <E id="videos.subcta.eyebrow" tag="div" className="hero-eyebrow">like what you saw?</E>
+          <E id="videos.subcta.title" tag="h2" className="sec-title">Subscribe for new horse content weekly</E>
+        </div>
+        <a className="btn btn-pink btn-lg" href="https://www.youtube.com/@MareGirl_sehr" target="_blank" rel="noopener">▶ Subscribe @MareGirl_sehr</a>
+      </div>
+    </div>
+  );
+};
+
+// ===================== NAMES =====================
+
+const Names = () => {
+  const [theme, setTheme] = useState("whimsy");
+  const [current, setCurrent] = useState({ first: "Buttercup", second: "Bumble" });
+  const [saved, setSaved] = useState([]);
+  const [pulse, setPulse] = useState(false);
+  const [copied, setCopied] = useState(null);
+
+  const roll = () => {
+    const t = NAME_PARTS[theme];
+    const first = t.first[Math.floor(Math.random() * t.first.length)];
+    const second = t.second[Math.floor(Math.random() * t.second.length)];
+    setCurrent({ first, second });
+    setPulse(true);
+    setTimeout(() => setPulse(false), 380);
+  };
+
+  useEffect(() => { roll(); /* eslint-disable-next-line */ }, [theme]);
+
+  const fullName = theme === "myth" ? `${current.first}${current.second}` : `${current.first} ${current.second}`;
+
+  const save = () => {
+    if (!saved.includes(fullName)) setSaved([fullName, ...saved].slice(0, 24));
+  };
+
+  const copy = (name) => {
+    navigator.clipboard?.writeText(name);
+    setCopied(name);
+    setTimeout(() => setCopied(null), 1200);
+  };
+
+  return (
+    <div className="page">
+      <section className="page-head">
+        <E id="names.eyebrow" tag="div" className="hero-eyebrow">the generator</E>
+        <E id="names.title" tag="h1" className="page-title">Horse Name Ideas</E>
+        <E id="names.lede" tag="p" className="page-lede" multiline>Pick a vibe, smash the button, save your favorites. Built because I literally couldn't name my new Friesian.</E>
+      </section>
+
+      <div className="name-tool">
+        <div className="name-themes">
+          {Object.entries(NAME_PARTS).map(([key, val]) => (
+            <button
+              key={key}
+              className={`theme ${theme === key ? "active" : ""}`}
+              onClick={() => setTheme(key)}
+            >
+              {val.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="name-stage">
+          <div className={`name-card ${pulse ? "pulse" : ""}`}>
+            <div className="name-card-eyebrow">{NAME_PARTS[theme].label} name</div>
+            <div className="name-card-name">{fullName}</div>
+            <div className="name-card-actions">
+              <button className="btn btn-brown btn-lg" onClick={roll}>
+                <Sparkle size={14} color="#FBF5EA" /> Generate
+              </button>
+              <button className="btn btn-pink" onClick={save}>♥ Save</button>
+              <button className="btn btn-outline" onClick={() => copy(fullName)}>
+                {copied === fullName ? "copied ✿" : "Copy"}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="name-saved">
+          <div className="name-saved-head">
+            <h3>Your saved names</h3>
+            {saved.length > 0 && (
+              <button className="link-btn" onClick={() => setSaved([])}>clear all</button>
+            )}
+          </div>
+          {saved.length === 0 ? (
+            <div className="name-saved-empty">
+              <Horseshoe size={28} color="#D99A9A" />
+              <p>No favorites yet — hit <strong>♥ Save</strong> when you find one that makes you go 'oh.'</p>
+            </div>
+          ) : (
+            <ul className="saved-list">
+              {saved.map(n => (
+                <li key={n} className="saved-item">
+                  <span>{n}</span>
+                  <div className="saved-actions">
+                    <button onClick={() => copy(n)}>{copied === n ? "copied" : "copy"}</button>
+                    <button onClick={() => setSaved(saved.filter(x => x !== n))}>remove</button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+      </div>
+
+      {/* Curated lists */}
+      <section className="sec">
+        <div className="sec-head">
+          <div>
+            <E id="names.fav.kicker" tag="div" className="sec-kicker">hand-picked</E>
+            <E id="names.fav.title" tag="h2" className="sec-title">My all-time favorites</E>
+          </div>
+        </div>
+        <div className="grid grid-2">
+          {[
+            { title: "For a fancy lady", items: ["Lady Beaumont", "Duchess Hawthorne", "Empress Calliope", "Countess Isolde"] },
+            { title: "For a chaotic gelding", items: ["Sir Clompsalot", "Biscuit Doodle", "Pickles Bumpkin", "Waffle Tippytoes"] },
+            { title: "For a dreamy mare", items: ["Moonweaver", "Echoborn", "Stardancer", "Duskwhisper"] },
+            { title: "For a snack", items: ["Mocha Bean", "Honey Crumb", "Toffee Drizzle", "Custard Puff"] },
+          ].map(group => (
+            <div key={group.title} className="curated">
+              <h4>{group.title}</h4>
+              <ul>{group.items.map(n => <li key={n}>{n}</li>)}</ul>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  );
+};
+
+// ===================== UPDATES =====================
+
+const Updates = () => (
+  <div className="page">
+    <section className="page-head">
+      <E id="updates.eyebrow" tag="div" className="hero-eyebrow">the changelog</E>
+      <E id="updates.title" tag="h1" className="page-title">Updates & patch notes</E>
+      <E id="updates.lede" tag="p" className="page-lede" multiline>What's new in Star Equestrian, what's new on the channel, and tiny things I think you should know about.</E>
+    </section>
+
+    <ol className="timeline">
+      {UPDATES.map((u, i) => (
+        <li key={i} className={`tl-item tl-${u.tone}`}>
+          <div className="tl-dot"><Horseshoe size={18} color="#fff" /></div>
+          <div className="tl-card">
+            <div className="tl-head">
+              <Tag tone={u.tone === "major" ? "pink" : u.tone === "channel" ? "brown" : "blue"}>
+                {u.tone === "major" ? "Major update" : u.tone === "channel" ? "Channel" : "Patch"}
+              </Tag>
+              <E id={`upd.${i}.ver`} tag="h3">{u.version}</E>
+            </div>
+            <ul className="tl-list">
+              {u.items.map((it, k) => (
+                <li key={k}><E id={`upd.${i}.item.${k}`} tag="span" multiline>{it}</E></li>
+              ))}
+            </ul>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+);
+
+// ===================== ABOUT =====================
+
+const About = ({ onNav, images, setImages, admin }) => {
+  return (
+    <div className="page">
+      <section className="page-head">
+        <div className="hero-eyebrow"><Sparkle size={14} color="#D99A9A" /> about me</div>
+        <h1 className="page-title">Hi, I'm Mare Girl ✿</h1>
+        <p className="page-lede">A vtuber who plays Star Equestrian Horse Ranch — the open-world horse MMO set in Evervale — with way too much enthusiasm and not nearly enough self-control at the Heartside tack shop.</p>
+      </section>
+
+      <section className="about">
+        <div className="about-portrait">
+          <ImageSlot slotKey="aboutPortrait" label="vtuber model · full body" aspect="3 / 4" tone="pink" images={images} setImages={setImages} admin={admin} />
+        </div>
+        <div className="about-text">
+          <E id="about.h1" tag="h2">The short version</E>
+          <E id="about.p1" tag="p" multiline placeholder="Write a short intro about yourself here — how you got into Star Equestrian, why you started the channel, what you love about the game. 2–4 sentences is perfect.">[ click to write your intro — who you are, how you got into Star Equestrian, why you started the channel ]</E>
+
+          <E id="about.h2" tag="h2">What you'll find here</E>
+          <ul className="about-list">
+            <li><E id="about.li1" tag="span" placeholder="thing #1 readers will find on your blog/channel">[ click to write thing #1 — e.g. Diaries, Guides, Streams ]</E></li>
+            <li><E id="about.li2" tag="span" placeholder="thing #2">[ click to write thing #2 ]</E></li>
+            <li><E id="about.li3" tag="span" placeholder="thing #3">[ click to write thing #3 ]</E></li>
+            <li><E id="about.li4" tag="span" placeholder="thing #4">[ click to write thing #4 ]</E></li>
+          </ul>
+
+          <E id="about.h3" tag="h2">A few facts</E>
+          <div className="facts">
+            <div className="fact"><E id="about.fact1.k" tag="strong">Main game</E><E id="about.fact1.v" tag="span">Star Equestrian Horse Ranch</E></div>
+            <div className="fact"><E id="about.fact2.k" tag="strong">Home region</E><E id="about.fact2.v" tag="span">Heartside</E></div>
+            <div className="fact"><E id="about.fact3.k" tag="strong">Favorite breed</E><E id="about.fact3.v" tag="span">Friesian</E></div>
+            <div className="fact"><E id="about.fact4.k" tag="strong">Favorite color</E><E id="about.fact4.v" tag="span">Strawberry roan</E></div>
+            <div className="fact"><E id="about.fact5.k" tag="strong">Upload schedule</E><E id="about.fact5.v" tag="span">About once a week · plus Shorts</E></div>
+            <div className="fact"><E id="about.fact6.k" tag="strong">First in-game horse</E><E id="about.fact6.v" tag="span">Snowdrop</E></div>
+          </div>
+
+          <div className="about-cta">
+            <a className="btn btn-pink" href="https://www.youtube.com/@MareGirl_sehr" target="_blank" rel="noopener">Watch on YouTube</a>
+            <button className="btn btn-outline" onClick={() => onNav("blog")}>Read the blog</button>
+          </div>
+        </div>
+      </section>
+
+      <Newsletter />
+    </div>
+  );
+};
+
+// ===================== NEWSLETTER =====================
+
+const Newsletter = () => {
+  const [email, setEmail] = useState("");
+  const [state, setState] = useState("idle"); // idle | err | ok | sending
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+    if (!ok) { setState("err"); return; }
+    setState("sending");
+    try {
+      const res = await fetch("https://formspree.io/f/mjgllpab", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({ email: email.trim(), source: "Mare Girl Blog newsletter" }),
+      });
+      if (!res.ok) throw new Error("formspree");
+      setState("ok");
+      setEmail("");
+    } catch {
+      setState("err");
+    }
+  };
+
+  return (
+    <section className="newsletter">
+      <div className="news-inner">
+        <div>
+          <div className="hero-eyebrow"><Sparkle size={14} color="#D99A9A" /> the stable post</div>
+          <h2 className="sec-title">Monthly-ish letters from the barn</h2>
+          <p>Once a month: my favorite posts, new videos, and the weirdest names chat picked. No spam, just hooves.</p>
+        </div>
+        <form className="news-form" onSubmit={submit}>
+          <input
+            type="email"
+            placeholder="your@email.com"
+            value={email}
+            onChange={e => { setEmail(e.target.value); setState("idle"); }}
+            aria-invalid={state === "err"}
+          />
+          <button className="btn btn-brown" type="submit" disabled={state === "sending"}>
+            {state === "sending" ? "sending…" : "Subscribe"}
+          </button>
+          {state === "err" && <div className="news-msg err">that doesn't look like an email, friend (or the send failed — try again)</div>}
+          {state === "ok"  && <div className="news-msg ok">welcome to the barn ✿ check your inbox</div>}
+        </form>
+      </div>
+    </section>
+  );
+};
+
+// ===================== APP =====================
+
+const App = () => {
+  const [page, setPage] = useState("home");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [likes, setLikes] = useState(loadLikes);
+  const [savedFlash, setSavedFlash] = useState(false);
+  const [ytTitles, setYtTitles] = useState({});
+  const [userPosts, setUserPosts] = useState(loadUserPosts);
+  const [deletedIds, setDeletedIds] = useState(loadDeleted);
+  const [images, setImages] = useState(loadImages);
+  const [texts, setTexts] = useState(loadTexts);
+  const [admin, setAdmin] = useState(isAdmin);
+  const [passcodePrompt, setPasscodePrompt] = useState(null); // null | "set" | "enter" | "change"
+  const [reading, setReading] = useState(null);
+  const [writing, setWriting] = useState(false);
+
+  useEffect(() => {
+    const ids = VIDEOS.filter(v => v.ytId).map(v => v.ytId);
+    ids.forEach(id => {
+      fetch(`https://www.youtube.com/oembed?url=https://youtu.be/${id}&format=json`)
+        .then(r => r.ok ? r.json() : null)
+        .then(d => { if (d?.title) setYtTitles(t => ({ ...t, [id]: d.title })); })
+        .catch(() => {});
+    });
+  }, []);
+
+  VIDEOS.forEach(v => { if (v.ytId && ytTitles[v.ytId]) v.title = ytTitles[v.ytId]; });
+
+  const allPosts = useMemo(
+    () => [...userPosts, ...BLOG_POSTS].filter(p => !deletedIds.includes(p.id)),
+    [userPosts, deletedIds]
+  );
+
+  const onLike = (id) => setLikes(s => { const next = { ...s, [id]: (s[id] || 0) + 1 }; saveLikes(next); return next; });
+  const flashSaved = () => { setSavedFlash(true); setTimeout(() => setSavedFlash(false), 1600); };
+  const saveAll = () => {
+    saveLikes(likes);
+    saveImages(images);
+    saveUserPosts(userPosts);
+    saveDeleted(deletedIds);
+    flashSaved();
+    downloadBackup(); // auto-backup on every save
+  };
+
+  const downloadBackup = () => {
+    const data = {
+      version: 1,
+      exportedAt: new Date().toISOString(),
+      texts, likes, images, userPosts, deletedIds,
+    };
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `mare-girl-backup-${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  };
+
+  const importBackup = () => {
+    const input = document.createElement("input");
+    input.type = "file"; input.accept = "application/json,.json";
+    input.onchange = (e) => {
+      const f = e.target.files?.[0]; if (!f) return;
+      const r = new FileReader();
+      r.onload = ev => {
+        try {
+          const d = JSON.parse(ev.target.result);
+          if (d.texts) { setTexts(d.texts); saveTexts(d.texts); }
+          if (d.likes) { setLikes(d.likes); saveLikes(d.likes); }
+          if (d.images) { setImages(d.images); saveImages(d.images); }
+          if (d.userPosts) { setUserPosts(d.userPosts); saveUserPosts(d.userPosts); }
+          if (d.deletedIds) { setDeletedIds(d.deletedIds); saveDeleted(d.deletedIds); }
+          flashSaved();
+        } catch { alert("Couldn't read that file — make sure it's a Mare Girl backup .json"); }
+      };
+      r.readAsText(f);
+    };
+    input.click();
+  };
+  const onNav = (p) => { setPage(p); window.scrollTo({ top: 0, behavior: "smooth" }); };
+  const onRead = (post) => setReading(post);
+  const onSavePost = (post) => {
+    const next = [post, ...userPosts];
+    setUserPosts(next);
+    saveUserPosts(next);
+  };
+  const onDeletePost = (id) => {
+    if (!confirm("Delete this post? (You can restore it later from the admin panel.)")) return;
+    const userMade = userPosts.some(p => p.id === id);
+    if (userMade) {
+      const next = userPosts.filter(p => p.id !== id);
+      setUserPosts(next);
+      saveUserPosts(next);
+    } else {
+      const next = [...deletedIds, id];
+      setDeletedIds(next);
+      saveDeleted(next);
+    }
+  };
+  const onRestoreAll = () => {
+    setDeletedIds([]);
+    saveDeleted([]);
+  };
+  const toggleAdmin = () => {
+    if (admin) {
+      // Sign out — no passcode needed
+      localStorage.removeItem(ADMIN_KEY);
+      setAdmin(false);
+    } else {
+      // Need passcode — set one if none, otherwise prompt to enter
+      setPasscodePrompt(hasPasscode() ? "enter" : "set");
+    }
+  };
+  const onPasscodeSuccess = () => {
+    localStorage.setItem(ADMIN_KEY, "1");
+    setAdmin(true);
+    setPasscodePrompt(null);
+  };
+  const onChangePasscode = () => setPasscodePrompt("change");
+
+  return (
+    <EditCtx.Provider value={{ texts, setTexts, admin }}>
+    <div className="app">
+      <Header page={page} onNav={onNav} menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
+      <main data-screen-label={page}>
+        {page === "home"    && <Home onNav={onNav} likes={likes} onLike={onLike} posts={allPosts} onRead={onRead} images={images} setImages={setImages} admin={admin} />}
+        {page === "blog"    && <Blog likes={likes} onLike={onLike} posts={allPosts} onRead={onRead} admin={admin} onDelete={onDeletePost} onNewPost={() => setWriting(true)} hiddenCount={deletedIds.length} onRestoreAll={onRestoreAll} />}
+        {page === "videos"  && <Videos />}
+        {page === "names"   && <Names />}
+        {page === "updates" && <Updates />}
+        {page === "about"   && <About onNav={onNav} images={images} setImages={setImages} admin={admin} />}
+      </main>
+      <Footer onNav={onNav} />
+
+      {reading && <PostDetail post={reading} onClose={() => setReading(null)} likes={likes} onLike={onLike} />}
+      {writing && <NewPostForm onClose={() => setWriting(false)} onSave={onSavePost} />}
+      {passcodePrompt && (
+        <PasscodeModal
+          mode={passcodePrompt}
+          onClose={() => setPasscodePrompt(null)}
+          onSuccess={passcodePrompt === "change" ? () => setPasscodePrompt(null) : onPasscodeSuccess}
+        />
+      )}
+
+      {admin && (
+        <button className="admin-fab" onClick={() => setWriting(true)} title="New post (admin)">
+          <span className="admin-fab-plus">✚</span>
+          <span className="admin-fab-label">New post</span>
+        </button>
+      )}
+
+      {admin ? (
+        <div className="admin-pill">
+          <span>✿ admin on</span>
+          <button onClick={saveAll} title="Save + download backup">💾</button>
+          <button onClick={importBackup} title="Restore from backup file">📂</button>
+          <button onClick={onChangePasscode} title="Change passcode">🔑</button>
+          <button onClick={toggleAdmin} title="Sign out">⎋</button>
+        </div>
+      ) : (
+        <button
+          className="admin-key"
+          onClick={toggleAdmin}
+          title="Unlock admin (Mare Girl only)"
+          aria-label="admin"
+        >·</button>
+      )}
+    </div>
+    </EditCtx.Provider>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+
+</script>
+</body>
+</html>
